@@ -1,39 +1,32 @@
 # ☕ Coffee Shop Sales Analysis (SQL Project)
 
-## 📌 Project Overview
-This project focuses on analyzing **coffee shop sales data** using SQL.  
-The goal was to clean, transform, and analyze transactional data to uncover **sales performance trends, customer behavior patterns, and product insights**.
+📌 **Project Overview**
+This project involves an end-to-end analysis of retail sales data for a coffee shop business. The goal was to transform raw transaction records into a dynamic dashboard that helps stakeholders understand sales trends, customer behavior, and product performance.
+<img width="732" height="469" alt="Coffeeshopsales Dashboard" src="https://github.com/user-attachments/assets/267cd527-8cc6-4952-83bf-7baf6b8402a4" />
 
-## ⚙️ Key Objectives
-- Data cleaning and formatting (date and time conversions, column modifications).  
-- Monthly, weekly, and daily **sales, orders, and quantity sold analysis**.  
-- Growth comparisons (month-over-month and day-over-day).  
-- Sales analysis by **store location, product category, and product type**.  
-- Identifying **top-performing products** and customer demand trends.  
-- Time series analysis for **hourly and weekday/weekend performance**.  
+🛠️ **Tech Stack**
+Database: MySQL
+Language: SQL (Data Cleaning, Analysis, Window Functions)
+Visualization: Power BI / Excel
 
-## 🛠️ Technologies Used
-- **SQL** (MySQL)  
-- Window functions (`LAG`, `AVG OVER`)  
-- CTEs (Common Table Expressions)  
-- Aggregations and groupings  
+🔍 **Key Features & Analysis**
+The project focuses on the following Key Performance Indicators (KPIs) and dimensions:
 
-## 📊 Analysis Highlights
-- **Total Sales & Orders** by month with percentage growth.  
-- **Daily performance** vs. average benchmarks (above/below average days).  
-- **Top 5 product types** and **tea category breakdown**.  
-- **Location-wise revenue contribution**.  
-- **Hourly sales trends** to identify peak business hours.
+**Data Cleaning**:
+Standardized transaction_date and transaction_time formats using SQL STR_TO_DATE.
+Handled data types modifications for accurate time-series analysis.
+**Time Series Analysis**:
+Monthly Sales: Calculated Total Sales, Orders, and Quantity sold.
+MoM Growth: Used SQL Window Functions (LAG) to calculate month-over-month percentage increase/decrease.
+Hourly & Weekly Trends: Identified peak trading hours and compared Weekend vs. Weekday revenue to assist with workforce planning.
+Product & Location Analysis:
+Store Performance: Ranked sales by store location (Hell's Kitchen, Lower Manhattan, Astoria).
+Product Breakdown: Analyzed sales distribution across categories (Coffee, Tea, Bakery) and specific product types.
 
-
-# Data Analysis-using-MYSQL
-🚚 **Logistics Shipment Data Analysis (SQL Project)**
-🧠 **Objective**
-This project focuses on analyzing shipment operations for a logistics company using structured SQL queries. The goal is to derive business insights related to customers, shipments, employees, payments, and shipment statuses.
-
-🛠️** Tools & Technologies**
-MySQL / SQL Server
-ER Modeling (drawn using MySQL Workbench)
-GitHub for version control
+📂 SQL Techniques Used
+**CTEs (Common Table Expressions)**: For calculating monthly averages and sales aggregation.
+**Window Functions**: LAG() for previous month comparisons and AVG() OVER() for daily sales status.
+**Case Statements**: For conditional logic (e.g., Categorizing "Weekend" vs. "Weekday" or "Above Average" sales days).
+**Date/Time Functions**: MONTH(), HOUR(), DAYOFWEEK() for temporal segmentation.
 
 
