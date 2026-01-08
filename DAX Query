@@ -1,0 +1,39 @@
+Avg sales = AVERAGEX(ALLSELECTED(Transactions[transaction_date]),[Total Sales])
+Total Sales = SUM(Transactions[Sales])
+Total Orders = DISTINCTCOUNT(Transactions[transaction_id])
+Total Quantity sold = SUM(Transactions[transaction_qty])
+
+#Current Month(CM)
+CM Orders = VAR selected_month = SELECTEDVALUE('Date'[Month]) RETURN TOTALMTD(CALCULATE([Total Orders],'Date'[Month]=selected_month),'Date'[Date])
+CM Quantity = VAR selected_month = SELECTEDVALUE('Date'[Month]) RETURN TOTALMTD(CALCULATE([Total Quantity sold],'Date'[Month]=selected_month),'Date'[Date])
+CM sales = VAR selected_month = SELECTEDVALUE('Date'[Month]) RETURN TOTALMTD(CALCULATE([Total Sales],'Date'[Month]=selected_month),'Date'[Date])
+
+#Previous Month(PM)
+PM Orders = CALCULATE([CM Orders], DATEADD('Date'[Date],-1,MONTH))
+PM Quantity = CALCULATE([CM Quantity], DATEADD('Date'[Date],-1,MONTH))
+PM sales = CALCULATE([CM sales], DATEADD('Date'[Date],-1,MONTH))
+
+Label for Product category = SELECTEDVALUE(Transactions[product_category]) & " | " & FORMAT([Total Sales]/1000 , "$0.00K")
+
+Label for Product Type = SELECTEDVALUE(Transactions[product_type]) & " | " & FORMAT([Total Sales]/1000 , "$0.00K")
+
+Label for store location = SELECTEDVALUE(Transactions[store_location]) & " | " & FORMAT([Total Sales]/1000 , "$0.00K")
+
+#Order Diffrence Between current month(CM) and previous month(PM)
+Orders Difference = VAR month_diff = [CM Orders] - [PM Orders]    VAR mom= ([CM Orders] - [PM Orders]) / [PM Orders]
+var _sign = if(month_diff > 0, "+", "")  VAR _sign_trend = IF(month_diff > 0, "▲" , "▼")
+RETURN
+_sign_trend & " " & _sign & FORMAT(mom, "#0.0%" & " | " & _sign & FORMAT(month_diff/1000, "0.0k")) & " " & "VS LM" 
+
+
+#Quantity Diffrence between Current month and Previous month
+Quantity Difference = VAR month_diff = [CM Quantity] - [PM Quantity]    VAR mom= ([CM Quantity] - [PM Quantity]) / [PM Quantity] 
+var _sign = if(month_diff > 0, "+", "")  VAR _sign_trend = IF(month_diff > 0, "▲" , "▼") 
+RETURN
+_sign_trend & " " & _sign & FORMAT(mom, "#0.0%" & " | " & _sign & FORMAT(month_diff/1000, "0.0k")) & " " & "VS LM" 
+
+#Sales Diffrence between Current month and Previous month
+sales difference = VAR month_diff = [CM sales] - [PM sales]    VAR mom= ([CM sales] - [PM sales]) / [PM sales] 
+var _sign = if(month_diff > 0, "+", "")  VAR _sign_trend = IF(month_diff > 0, "▲" , "▼")
+RETURN 
+_sign_trend & " " & _sign & FORMAT(mom, "#0.0%" & " | " & _sign & FORMAT(month_diff/1000, "0.0k")) & " " & "VS LM" 
